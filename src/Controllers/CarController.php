@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
-use Models\Car;
-use Security\TokenManager;
+use App\Models\Car;
+use App\Security\TokenManager;
 
 class CarController extends BaseController
 {
@@ -20,6 +20,12 @@ class CarController extends BaseController
         $this->requireAuth();
         $cars = $this->carModel->all();
         $this->render('cars/index', ['title' => 'Gestion des voitures', 'cars' => $cars]);
+    }
+
+    public function publicIndex(): void
+    {
+        $cars = $this->carModel->all();
+        $this->render('cars/public', ['title' => 'Nos véhicules d\'occasion', 'cars' => $cars]);
     }
     
     public function show(int $id): void

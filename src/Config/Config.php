@@ -61,12 +61,19 @@ class Config{
      * @param string $path le chemin vers le dossier contenant le fichier .env
     */
 
-    public static function load($path = __DIR__ . '../../'):void{
-
+    public static function load($path = null):void{
+        
+        // Si aucun chemin n'est fourni, on utilise la racine du projet
+        if ($path === null) {
+            $path = dirname(__DIR__, 2); // Remonte de 2 niveaux depuis src/Config/
+        }
+        
         //on verifie si le fichier .env existe avant de tenter de le charger
-        if(file_exists($path . '.env')){
+        if(file_exists($path . '/.env')){
             $dotenv = Dotenv::createImmutable($path);
             $dotenv->load();
+        } else {
+            throw new \Exception("Fichier .env non trouvé dans : " . $path);
         }
     }
 

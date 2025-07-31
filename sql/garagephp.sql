@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS garagephp_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE garagephp_db;
+CREATE DATABASE IF NOT EXISTS garagephp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE garagephp;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,8 +24,20 @@ CREATE TABLE cars (
     updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    phone VARCHAR(20) DEFAULT '',
+    subject VARCHAR(200) NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('nouveau', 'en_cours', 'traité', 'fermé') NOT NULL DEFAULT 'nouveau',
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_status (status),
+    INDEX idx_created_at (created_at)
+);
+
 -- Insérer un utilisateur admin par défaut (mot de passe: password)
 INSERT INTO `users` (`username`, `email`, `password`, `role`) VALUES
-('admin', 'admin@garage.com', '$2y$10$w5J1T8J1T4wE.pY2u8Y4a.cR/Ea6.aD/qW/jI/cW/hG.iJ/bK/lM.', 'admin');
-
-
+('admin', 'admin@garage.com', '$2y$12$r4E4HSCT7xxjl3IdW4qGl.HErj02yTuzb7yYIOMRZId.fztyua91G', 'admin');
