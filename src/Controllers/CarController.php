@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
-use Models\Car;
-use Security\TokenManager;
+use App\Models\Car;
+use App\Security\TokenManager;
 
 class CarController extends BaseController
 {
