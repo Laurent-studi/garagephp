@@ -21,10 +21,21 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r){
 
 
     $r->addRoute('GET', '/', [App\Controllers\HomeController::class, 'index']);
+    $r->addRoute('GET', '/vehicles', [App\Controllers\CarController::class, 'publicIndex']);
+    $r->addRoute('GET', '/contact', [App\Controllers\ContactController::class, 'show']);
+    $r->addRoute('POST', '/contact', [App\Controllers\ContactController::class, 'store']);
     $r->addRoute('GET', '/login', [App\Controllers\AuthController::class, 'showLogin']);
     $r->addRoute('POST', '/login', [App\Controllers\AuthController::class, 'login']);
     $r->addRoute('POST', '/logout', [App\Controllers\AuthController::class, 'logout']);
     $r->addRoute('GET', '/cars', [App\Controllers\CarController::class, 'index']);
+    $r->addRoute('GET', '/cars/create', [App\Controllers\CarController::class, 'create']);
+    $r->addRoute('POST', '/cars', [App\Controllers\CarController::class, 'store']);
+    $r->addRoute('GET', '/cars/{id:\d+}', [App\Controllers\CarController::class, 'show']);
+    $r->addRoute('GET', '/cars/{id:\d+}/edit', [App\Controllers\CarController::class, 'edit']);
+    $r->addRoute('PUT', '/cars/{id:\d+}', [App\Controllers\CarController::class, 'update']);
+    $r->addRoute('DELETE', '/cars/{id:\d+}', [App\Controllers\CarController::class, 'destroy']);
+    $r->addRoute('GET', '/admin/contacts', [App\Controllers\ContactController::class, 'index']);
+    $r->addRoute('POST', '/admin/contacts/{id:\d+}/processed', [App\Controllers\ContactController::class, 'markAsProcessed']);
 });
 
 //Traitement de la requête
